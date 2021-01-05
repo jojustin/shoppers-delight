@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-const port = 4000
+const port = 3000
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public'));
