@@ -44,7 +44,7 @@ This sample contains an NodeJS project that you can use to learn more about the 
       <img src="README_IMG1.png" width=75% height=50%/>
     - Script execution takes time. Script is executed successfully only when you see the log `---Demo script complete---` at the end in your terminal.
 - Edit the configuration values in file [`server.js`](server.js)
-    - Replace `region`, `guid` & `apikey` at [line 22](server.js#L21) with the values you obtained from the Service credentials section of the instance.
+    - Replace `region`, `guid` & `apikey` at [line 21](server.js#L21) with the values you obtained from the Service credentials section of the instance.
 - Installing Dependencies
     - Run `npm install` from the root folder to install the app’s dependencies.
 
