@@ -113,7 +113,7 @@ addSegments()
 	segmentUpdateURL=$segmentURL
 	days=$(($(date +'%s * 1000 + %-N / 1000000')))
 	segmentId="segment_${days}"
-	segmentStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $segmentUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"segment_id": "'"${segmentId}"'", "name": "Bluetooth earphones segment","description": "Segment to evaluate that bluetooth earphones are visible only during 10 to 12pm time period","tags": "sale","rules" :  [{"values":["10"],"operator":"greaterThanEquals","attribute_name":"time"},{"values":["12"],"operator":"lesserThan","attribute_name":"time"}]}' )
+	segmentStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $segmentUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"segment_id": "'"${segmentId}"'", "name": "Bluetooth earphones segment","description": "Segment to evaluate that bluetooth earphones are visible only during 10am to 12pm time period","tags": "sale","rules" :  [{"values":["10"],"operator":"greaterThanEquals","attribute_name":"time"},{"values":["12"],"operator":"lesserThan","attribute_name":"time"}]}' )
 	HTTP_BODY=$(echo $segmentStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
 	HTTP_STATUS=$(echo $segmentStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
  	printf "%b\nHTTP_STATUS is $HTTP_STATUS"

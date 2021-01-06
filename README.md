@@ -54,9 +54,10 @@ This sample contains an NodeJS project that you can use to learn more about the 
 
 
 ## Test the app with feature toggle and segmentation
-- Explain feature toggle use case 1
-- Explain feature toggle use case 2
-- Explain feature toggle use case 3
+- Keep the app running. From the App Configuration service instance dashboard, navigate to Feature flags section.
+- Turn ON the toggle for `Flash sale banner` feature flag. Once turned ON, refresh your app running on localhost:3000. You will observe a banner image added on top of your homepage. And when the toggle is turned OFF, the banner image disappears or is removed from the home page.
+- `Flash sale date` feature flag will act in synchronizes with `Flash sale banner`. Changing the enabled & disabled value by editing the `Flash sale date` feature flag, the date on banner image is altered.
+- Similarly turn ON the toggle for `Bluetooth earphones` feature flag & refresh the running app. Since this feature flag is targeted to segment - `Bluetooth earphones segment`, all the bluetooth earphones items are listed in the homepage only when the app is accessed between 10am to 12pm local time.
 
 # License
 Copyright 2020 IBM Corp.
