@@ -30,8 +30,8 @@ This sample contains an NodeJS project that you can use to learn more about the 
 ### Next steps
 - Download the source code
     ```
-    git clone https://github.com/examplepath/examplepath
-    cd <repoistory name>
+    git clone https://github.com/saikumar1607/shopping-website.git
+    cd shopping-website
     ```
 - Setup or configure your app configuration service instance
     - Navigate to dashboard of your app configuration instance.
