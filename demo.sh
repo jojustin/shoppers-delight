@@ -1,3 +1,5 @@
+# NOTE : This script is just a guidelined usage there may be errors that can happen based on your environment.
+
 #!/bin/bash
 set -e
 
@@ -162,7 +164,7 @@ addFeature()
 		printf "%bSuccess:  Feature updated with id $featureId\n"
 	fi
 
-	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name":"Flash sale date","feature_id":"flash-sale-date","description":"Numeric feature flag to alter or change the date of flash sale","tags":"date,number","type":"NUMERIC","enabled_value":20,"disabled_value":0,"collections": [{"collection_id": "shopping-website","enabled": true,"deleted": false}]}' )
+	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name":"Flash sale date","feature_id":"flash-sale-date","description":"Numeric feature flag to alter or change the date of flash sale","tags":"number,date","type":"NUMERIC","enabled_value":20,"disabled_value":0,"collections": [{"collection_id": "shopping-website","enabled": true,"deleted": false}]}' )
 	HTTP_BODY=$(echo $featureStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
 	HTTP_STATUS=$(echo $featureStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
 	if [ $HTTP_STATUS != 201 ]
@@ -174,7 +176,7 @@ addFeature()
 		printf "%bSuccess:  Feature updated with id $featureId\n"
 	fi
 
-	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name":"Bluetooth earphones","feature_id":"bluetooth-earphones","description":"Feature flag to show or disable all the bluetooth earphones in the products list.\nWhen targeting is enabled, the earphones are shown only to that segment","tags":"sale,earphones","type":"BOOLEAN","enabled_value":false,"disabled_value":false,"segment_rules": [{"rules": [{"segments": ["'"${bluetoothEarphonesSegmentId}"'"]}],"value": true,"order": "1"}],"collections": [{"collection_id": "shopping-website","enabled": true,"deleted": false}]}' )
+	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name":"Bluetooth earphones","feature_id":"bluetooth-earphones","description":"Feature flag to show or disable all the bluetooth earphones in the products list.\nWhen targeting is enabled, the earphones are shown only to that segment","tags":"bool,earphones","type":"BOOLEAN","enabled_value":false,"disabled_value":false,"segment_rules": [{"rules": [{"segments": ["'"${bluetoothEarphonesSegmentId}"'"]}],"value": true,"order": "1"}],"collections": [{"collection_id": "shopping-website","enabled": true,"deleted": false}]}' )
 	HTTP_BODY=$(echo $featureStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
 	HTTP_STATUS=$(echo $featureStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
 	if [ $HTTP_STATUS != 201 ]

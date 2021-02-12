@@ -1,5 +1,5 @@
 {
-  "name": "final",
+  "name": "shopping-website",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -11,7 +11,6 @@
   "dependencies": {
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "ibm-appconfiguration-node-crash": "^0.1.1",
-    "ibm-appconfiguration-node-feature": "^0.1.1"
+    "ibm-appconfiguration-node-sdk": "^1.0.0"
   }
 }

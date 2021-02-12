@@ -9,45 +9,41 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use(express.static(path.join(__dirname, 'public', 'images')));
 
-const { AppConfigurationCore, Logger } = require('ibm-appconfiguration-node-core');
-const { AppConfigurationFeature } = require('ibm-appconfiguration-node-feature');
-
-// Enable logger
-var appconfigLogger = Logger.getInstance()
-appconfigLogger.setDebug(true)
+// App Configuration SDK require & init
+const { AppConfiguration } = require('ibm-appconfiguration-node-sdk');
 
 // NOTE: Add your custom values
-const coreClient = AppConfigurationCore.getInstance({
-    region: 'eu-gb',        //use `us-south` for Dallas. `eu-gb` for London
-    guid: '123456',
-    apikey: 'abcdef',
-})
+let region = 'eu-gb';          //use `us-south` for Dallas. `eu-gb` for London
+let guid = 'abc-def-xyz';
+let apikey = 'j9qc-abc-z79';
 
-// Fetaure SDK init
-const featureClient = AppConfigurationFeature.getInstance({
-    collectionId: 'shopping-website',
-    liveFeatureUpdateEnabled: true
-})
+const client = AppConfiguration.getInstance();
+
+client.setDebug(true)             //enable debug
+client.init(region, guid, apikey)
+client.setCollectionId('shopping-website')
 
 let enableFlashSaleBanner;
 let showFlashSaleDate;
 let enableBluetoothEarphones;
 
 function featureCheck(req, res, next) {
-    req.headers["time"] = new Date().getHours();        //attaching the hours value to custom property called "time" to the request header
+    let identityId = "defaultUser";
+    let identityAttributes = {
+        'time': new Date().getHours()
+    }
 
-    // fetch the feature `flash-sale-banner` and obtain the isEnabled() value
-    const flashSaleBannerFeature = featureClient.getFeature('flash-sale-banner')
+    // fetch the feature details for feature `flash-sale-banner` and obtain the enabled value isEnabled() method
+    const flashSaleBannerFeature = client.getFeature('flash-sale-banner')
     enableFlashSaleBanner = flashSaleBannerFeature.isEnabled()
 
-    // fetch the feature `flash-sale-date` and obtain the getCurrentValue() value
-    const flashSaleDateFeature = featureClient.getFeature('flash-sale-date')
-    showFlashSaleDate = flashSaleDateFeature.getCurrentValue()
+    // fetch the feature details of featureId `flash-sale-date` and obtain the enabled value using isEnabled() method
+    const flashSaleDateFeature = client.getFeature('flash-sale-date')
+    showFlashSaleDate = flashSaleDateFeature.getCurrentValue(identityId, identityAttributes)
 
-    /* fetch the feature `bluetooth-earphones` and obtain the getCurrentValue(req) along with feature evaluation via the req object.
-    Here, getCurrentValue(req) will evaluate the "time" property from the request header and returns the value */
-    const bluetootEarphonesFeature = featureClient.getFeature('bluetooth-earphones')
-    enableBluetoothEarphones = bluetootEarphonesFeature.getCurrentValue(req)
+    // fetch the feature details of featureId `bluetooth-earphones` and obtain the getCurrentValue(identity, identityAttributes) of the feature
+    const bluetootEarphonesFeature = client.getFeature('bluetooth-earphones')
+    enableBluetoothEarphones = bluetootEarphonesFeature.getCurrentValue(identityId, identityAttributes)
 
     next()
 }
