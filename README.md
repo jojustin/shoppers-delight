@@ -25,7 +25,7 @@ This sample contains an Node.js microservice that you can use to learn more abou
 - Click **Create**. A new service instance is created and the App Configuration dashboard is displayed.
 
 ## Setup the app
-### Prerequisites
+## Prerequisites
 - Node.js installed on your machine.
 - jq - command-line JSON processor. Install it from [here](https://stedolan.github.io/jq/download/).
 
