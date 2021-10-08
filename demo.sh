@@ -222,7 +222,7 @@ addCollection()
 addFeature()
 {
 	featureUpdateURL=$featureURL
-	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name": "Flash sale banner","feature_id": "flash-sale-banner","description": "A Boolean feature flag to display the announcement of flash sale via a banner","enabled_value": true,"type": "BOOLEAN","disabled_value": false,"tags": "banner","collections": [{"collection_id": "shopping-website"}],"segment_rules":[],"enabled": true}' )
+	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name": "Flash sale banner","feature_id": "flash-sale-banner","description": "A Boolean feature flag to display the announcement of flash sale via a banner","enabled_value": true,"type": "BOOLEAN","disabled_value": false,"tags": "banner","collections": [{"collection_id": "shopping-website"}],"segment_rules":[],"enabled": false}' )
 	HTTP_BODY=$(echo $featureStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
 	HTTP_STATUS=$(echo $featureStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
 	printf "%b\nHTTP_STATUS is $HTTP_STATUS\n"
@@ -235,7 +235,19 @@ addFeature()
 		printf "%bSuccess:  Feature updated with id $featureId\n"
 	fi
 
-	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name": "Bluetooth earphones","feature_id": "bluetooth-earphones","description": "Feature flag to show or disable all the bluetooth earphones in the products list. When targeting is enabled, the earphones are shown only to that segment","enabled_value": false,"type": "BOOLEAN","disabled_value": false,"tags": "earphones","segment_rules": [{"rules": [{"segments": ["'"${bluetoothEarphonesSegmentId}"'"]}],"value": true,"order": "1"}],"collections": [{"collection_id": "shopping-website"}],"enabled": true}' )
+	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name": "Bluetooth earphones","feature_id": "bluetooth-earphones","description": "Feature flag to show or disable all the bluetooth earphones in the products list. When targeting is enabled, the earphones are shown only to that segment","enabled_value": false,"type": "BOOLEAN","disabled_value": false,"tags": "earphones","segment_rules": [{"rules": [{"segments": ["'"${bluetoothEarphonesSegmentId}"'"]}],"value": true,"order": "1"}],"collections": [{"collection_id": "shopping-website"}],"enabled": false}' )
+	HTTP_BODY=$(echo $featureStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
+	HTTP_STATUS=$(echo $featureStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+	if [ $HTTP_STATUS != 201 ]
+	then
+		printf "%b\n \e[31m Failure : Feature update failed with error code $HTTP_STATUS and body $HTTP_BODY \e[39m"
+		cleanup
+	else 
+		featureId=$(echo $HTTP_BODY | jq -rc '.feature_id')
+		printf "%bSuccess:  Feature updated with id $featureId\n"
+	fi
+
+	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: $apikey" -H "Content-Type: application/json" --data '{"name": "Exclusive offers","feature_id": "exclusive-offers","description": "Exclusive only for set of customers","enabled_value": true,"type": "BOOLEAN","disabled_value": false,"tags": "prime","segment_rules": [],"collections": [{"collection_id": "shopping-website"}],"enabled": false}' )
 	HTTP_BODY=$(echo $featureStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
 	HTTP_STATUS=$(echo $featureStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
 	if [ $HTTP_STATUS != 201 ]
