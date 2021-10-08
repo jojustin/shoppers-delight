@@ -12,13 +12,6 @@
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   <!-- Custom styles for this template -->
   <style> body { padding-top: 56px; } </style>
-  <script>
-    var isLoggedInUser = "<%= isLoggedInUser %>"
-    var userEmail = "<%= userEmail %>"
-    var flashSaleBanner = "<%= flashSaleBanner %>"
-    var flashSaleDate = "<%= flashSaleDate %>"
-    var primeItems = "<%= primeItems %>"
-  </script>
 </head>
 
 <body>
@@ -131,7 +124,7 @@
           <div class="tab-pane active" id="C1">
             <% if(flashSaleBanner) { %>
             <img id="discount-banner" src="banner.png" class="img-fluid" alt="Responsive image">
-            <h1 style="position:absolute; top:105px; left:70px; color: #E74500;"><i><%= flashSaleDate %></i></h1>
+            <h1 style="position:absolute; top:70px; left:70px; color: #E74500;"><i><%= flashSaleDate %></i></h1>
             <% } %>
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
               <ol class="carousel-indicators">

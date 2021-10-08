@@ -45,7 +45,6 @@ function configCheck(req, res, next) {
   } else {
     req.isLoggedInUser = false
   }
-  next();
 
   const entityId = 'defaultUser';
   const entityAttributesForEarphones = {
