@@ -2,34 +2,26 @@
 <html lang="en">
 
 <head>
-
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
   <title>Shop Homepage - Start Bootstrap Template</title>
-
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
   <!-- Custom styles for this template -->
-  <style>
-    body {
-      padding-top: 56px;
-    }
-  </style>
-
+  <style> body { padding-top: 56px; } </style>
   <script>
+    var isLoggedInUser = "<%= isLoggedInUser %>"
+    var userEmail = "<%= userEmail %>"
     var flashSaleBanner = "<%= flashSaleBanner %>"
     var flashSaleDate = "<%= flashSaleDate %>"
+    var primeItems = "<%= primeItems %>"
   </script>
-
 </head>
 
 <body>
-
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -54,189 +46,318 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
           </li>
+          <% if(!isLoggedInUser) { %>
+          <li class="nav-item">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="#"><%= userEmail %></a>
+          </li>
+          <li class="nav-item">
+            <button type="button" onclick="window.location.href='/logout'" class="btn btn-primary">SIGN OUT</button>
+          </li>
+          <% } %>
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- Page Content -->
-  <div class="container">
-
+  <div class="container" style="margin-bottom: 100px;">
     <div class="row">
-
       <div class="col-lg-3">
-
         <h1 class="my-4">Shop Name</h1>
         <div class="list-group">
-          <a href="#" class="list-group-item">Category 1</a>
-          <a href="#" class="list-group-item">Category 2</a>
-          <a href="#" class="list-group-item">Category 3</a>
+          <% if(primeItems) { %>
+          <a href="#exclusive" class="list-group-item" data-toggle="tab">Exclusively for you <img src="offer_icon.png"> </a>
+          <% } %>
+          <a href="#C1" class="list-group-item" data-toggle="tab">Category 1</a>
+          <a href="#C2" class="list-group-item" data-toggle="tab">Category 2</a>
+          <a href="#C3" class="list-group-item" data-toggle="tab">More</a>
         </div>
-
       </div>
       <!-- /.col-lg-3 -->
-
       <div class="col-lg-9">
-        <% if(flashSaleBanner) { %>
-        <img id="discount-banner" src="banner.png" class="img-fluid" alt="Responsive image" style="padding-top: 56px;">
-        <h1 style="position:absolute; top:105px; left:70px; color: #E74500;"><i><%= flashSaleDate %></i></h1>
-        <% } %>
-        <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <img class="d-block img-fluid" src="carousel_1.png" alt="First slide">
+        <div class="tab-content my-4">
+          <div class="tab-pane" id="exclusive">
+            <div class="jumbotron">
+              <h1 class="display-4">Don't miss!</h1>
+              <p class="lead">Exclusively For You. Promos. Ongoing Offer. Cover image for post. Bonus Points, Upgrades, Discounts or anything else</p>
+              <hr class="my-4">
+              <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+              </p>
             </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="carousel_2.png" alt="Second slide">
-            </div>
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="carousel_3.png" alt="Third slide">
+            <div class="row">
+              <div id="spectacle" class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="item5.png" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="#">Item Five</a>
+                    </h4>
+                    <h5>Rs. 500</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                      Lorem ipsum dolor sit amet.</p>
+                  </div>
+                  <div class="card-footer text-right">
+                    <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+    
+              <div id="casual_shoe" class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="item6.png" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="#">Item Six</a>
+                    </h4>
+                    <h5>Rs. 500</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                    </p>
+                  </div>
+                  <div class="card-footer text-right">
+                    <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
+          <div class="tab-pane active" id="C1">
+            <% if(flashSaleBanner) { %>
+            <img id="discount-banner" src="banner.png" class="img-fluid" alt="Responsive image">
+            <h1 style="position:absolute; top:105px; left:70px; color: #E74500;"><i><%= flashSaleDate %></i></h1>
+            <% } %>
+            <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
+              <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              </ol>
+              <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                  <img class="d-block img-fluid" src="carousel_1.png" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block img-fluid" src="carousel_2.png" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                  <img class="d-block img-fluid" src="carousel_3.png" alt="Third slide">
+                </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+            <div class="row" >
+              <div id="mixer_and_jar" class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="item1.png" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="#">Item One</a>
+                    </h4>
+                    <h5>Rs. 500</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                    </p>
+                  </div>
+                  <div class="card-footer text-right">
+                    <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+    
+              <div id="bluetooth_earphone_skyblue" class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="item2.png" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="#">Item Two</a>
+                    </h4>
+                    <h5>Rs. 500</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                      Lorem ipsum dolor sit amet.</p>
+                  </div>
+                  <div class="card-footer text-right">
+                    <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+    
+              <div id="covid_masks" class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="item3.png" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="#">Item Three</a>
+                    </h4>
+                    <h5>Rs. 500</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                    </p>
+                  </div>
+                  <div class="card-footer text-right">
+                    <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+    
+              <div id="bluetooth_earphone_black" class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="item4.png" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="#">Item Four</a>
+                    </h4>
+                    <h5>Rs. 500</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                    </p>
+                  </div>
+                  <div class="card-footer text-right">
+                    <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+    
+              <div id="spectacle" class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="item5.png" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="#">Item Five</a>
+                    </h4>
+                    <h5>Rs. 500</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                      Lorem ipsum dolor sit amet.</p>
+                  </div>
+                  <div class="card-footer text-right">
+                    <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+    
+              <div id="casual_shoe" class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="item6.png" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="#">Item Six</a>
+                    </h4>
+                    <h5>Rs. 500</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
+                    </p>
+                  </div>
+                  <div class="card-footer text-right">
+                    <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
+                  </div>
+                </div>
+              </div>
+    
+            </div>
+            <!-- /.row -->
+          </div>
+          <div class="tab-pane" id="C2">
+            <main role="main" class="container">
+              <div class="starter-template">
+                <h3 class="pb-3 border-bottom">Category 2</h1>
+                <p class="lead">Welcome to the world of unbeatable deals, get up to 90% off on fashion, food, electronics, appliances, groceries, kids products and more.<br> The website helps you make the best online shopping decisions.</p>
+              </div>
+            </main>
+          </div>
+          <div class="tab-pane" id="C3">
+            <h3 class="pb-3 mb-4 font-italic border-bottom">Featured items</h3>
+            <div class="row mb-2">
+              <div class="col-md-6">
+                <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                  <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Electronics</strong>
+                    <h3 class="mb-0">
+                      <a class="text-dark" href="#">Mobiles</a>
+                    </h3>
+                    <div class="mb-1 text-muted">Nov 12</div>
+                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#">View all</a>
+                  </div>
+                  <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" style="width: 200px; height: 250px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20250%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17c5bbb430c%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17c5bbb430c%22%3E%3Crect%20width%3D%22200%22%20height%3D%22250%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2256.1953125%22%20y%3D%22130.7%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                  <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-success">Clothing</strong>
+                    <h3 class="mb-0">
+                      <a class="text-dark" href="#">Shoes</a>
+                    </h3>
+                    <div class="mb-1 text-muted">Nov 11</div>
+                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#">View all</a>
+                  </div>
+                  <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x250?theme=thumb" alt="Thumbnail [200x250]" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22200%22%20height%3D%22250%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20250%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17c5bbb430f%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A13pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17c5bbb430f%22%3E%3Crect%20width%3D%22200%22%20height%3D%22250%22%20fill%3D%22%2355595c%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2256.1953125%22%20y%3D%22130.7%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 200px; height: 250px;">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div class="row">
-
-          <div id="mixer_and_jar" class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="item1.png" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item One</a>
-                </h4>
-                <h5>Rs. 500</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                </p>
-              </div>
-              <div class="card-footer text-right">
-                <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div id="bluetooth_earphone_skyblue" class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="item2.png" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Two</a>
-                </h4>
-                <h5>Rs. 500</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                  Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer text-right">
-                <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div id="covid_masks" class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="item3.png" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Three</a>
-                </h4>
-                <h5>Rs. 500</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                </p>
-              </div>
-              <div class="card-footer text-right">
-                <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div id="bluetooth_earphone_black" class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="item4.png" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Four</a>
-                </h4>
-                <h5>Rs. 500</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                </p>
-              </div>
-              <div class="card-footer text-right">
-                <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div id="spectacle" class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="item5.png" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Five</a>
-                </h4>
-                <h5>Rs. 500</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                  Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer text-right">
-                <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-          <div id="casual_shoe" class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="item6.png" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Six</a>
-                </h4>
-                <h5>Rs. 500</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                </p>
-              </div>
-              <div class="card-footer text-right">
-                <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                <a href="#" class="btn btn-primary btn-sm">Buy Now</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <!-- /.row -->
-
       </div>
       <!-- /.col-lg-9 -->
-
     </div>
     <!-- /.row -->
-
   </div>
   <!-- /.container -->
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer class="py-4 bg-dark fixed-bottom">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
     </div>
-    <!-- /.container -->
   </footer>
+
+  <!-- LOGIN MODAL -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/" method="POST">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="recipient-email" class="col-form-label">Email Id:</label>
+              <input name="logemail" type="text" class="form-control" id="recipient-email" placeholder="Email Id"
+                aria-required="true" required>
+            </div>
+            <div class="form-group">
+              <label for="recipient-password" class="col-form-label">Password:</label>
+              <input name="logpassword" type="password" class="form-control" id="recipient-password" placeholder="Password"
+                aria-required="true" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
 
   <!-- Bootstrap core JavaScript -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
