@@ -54,7 +54,7 @@ This sample contains an Node.js microservice that you can use to learn more abou
 - Prerequisites
     - Node.js installed on your machine.
 - Edit the configuration values in file [`server.js`](server.js)
-    - Replace `region`, `guid` & `apikey` at [line 21](server.js#L21) with the values you obtained from the Service credentials section of the App Configuration service instance.
+    - Provide all the configuration values in [.env](.env) file
 - Installing Dependencies
     - Run `npm install` from the root folder to install the app’s dependencies.
 - Run `npm start` to start the app
@@ -62,10 +62,9 @@ This sample contains an Node.js microservice that you can use to learn more abou
 
 
 ## Use cases
-- Keep the app running. From the App Configuration service instance dashboard, navigate to Feature flags section.
-- Turn ON the toggle for `Flash sale banner` feature flag. Once turned ON, refresh your app running on localhost:3000. You will observe a banner image added on top of your homepage. And when the toggle is turned OFF, the banner image disappears or is removed from the home page.
-- `Flash sale date` property will act in synchronized with feature flag - `Flash sale banner`. The numeric property value is displayed as date on banner image.
-- Similarly turn ON the toggle for `Bluetooth earphones` feature flag & refresh the running app. Since this feature flag is targeted to segment - `Bluetooth earphones segment`, all the bluetooth earphones items are listed in the homepage only when the app is accessed between 10am to 12pm local time.
+- Bluetooth earphones
+- Flashsale Banner
+- Exclusive offers section
 
 # License
 Copyright 2021 IBM Corp.
