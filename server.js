@@ -59,6 +59,7 @@ function loginCheck(req, res, next) {
     userDetails = users.data.filter((e) => e.email === req.session.userEmail)[0];
   } else {
     req.isLoggedInUser = false;
+    userDetails = {}
   }
   next();
 }

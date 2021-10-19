@@ -223,7 +223,7 @@ addFeature()
 		printf "%bSuccess:  Feature updated with id $featureId\n"
 	fi
 
-	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" --data '{"name": "Flashsale Banner","feature_id": "flashsale-bannerr","description": "A Boolean feature flag to display the announcement of flash sale via a banner image on homepage.","enabled_value": true,"type": "BOOLEAN","disabled_value": false,"tags": "announcement","collections": [{"collection_id": "shoppers-delight"}],"enabled": false}' )
+	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" --data '{"name": "Flashsale Banner","feature_id": "flashsale-banner","description": "A Boolean feature flag to display the announcement of flash sale via a banner image on homepage.","enabled_value": true,"type": "BOOLEAN","disabled_value": false,"tags": "announcement","collections": [{"collection_id": "shoppers-delight"}],"enabled": false}' )
 	HTTP_BODY=$(echo $featureStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
 	HTTP_STATUS=$(echo $featureStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
 	printf "%b\nHTTP_STATUS is $HTTP_STATUS\n"
