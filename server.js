@@ -3,10 +3,12 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
+const users = require('./public/users/users.json')
 const { AppConfiguration } = require('ibm-appconfiguration-node-sdk'); // App Configuration SDK require
 
 const app = express();
 const port = 3000;
+let userDetails = {};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public'));
@@ -17,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public', 'images')));
+app.use(express.static(path.join(__dirname, 'public', 'users')));
 
 // NOTE: Add your custom values
 const region = process.env.REGION; // use `us-south` for Dallas. `eu-gb` for London. au-syd for Sydney
@@ -27,55 +30,44 @@ const environmentId = process.env.ENVIRONMENT_ID
 
 // App Configuration SDK initialisation
 const client = AppConfiguration.getInstance();
-client.setDebug(true); // enable debug
+// client.setDebug(true); // enable debug
 client.init(region, guid, apikey);
 client.setContext(collectionId, environmentId);
-
-// for property
-let flashSaleDate;
 
 // for featureflags
 let flashSaleBanner;
 let bluetoothEarphones;
 let primeItems;
 
-function configCheck(req, res, next) {
+function loginCheck(req, res, next) {
   if (req.session && req.session.userEmail) {
     req.isLoggedInUser = true
+    userDetails = users.data.filter((e) => e.email === req.session.userEmail)[0]
   } else {
     req.isLoggedInUser = false
   }
+  next()
+}
+function configCheck(req, res, next) {
 
-  const entityId = 'defaultUser';
-  const entityAttributesForEarphones = {
-    time: new Date().getHours(),
-  };
-  const entityAttributesForPrimeItems = {
-    email: req.session.userEmail ? req.session.userEmail : 'defaultUser',
-  };
-
-  console.log("Current local hours is", entityAttributesForEarphones.time)
-
-  // fetch the property details of propertyId `flash-sale-date` and obtain the property value using getCurrentValue()
-  const flashSaleDateProperty = client.getProperty('flash-sale-date');
-  flashSaleDate = flashSaleDateProperty.getCurrentValue(entityId, {});
-
-  // fetch the feature details for featureId `flash-sale-banner` and obtain the feature value using getCurrentValue()
-  const flashSaleBannerFeature = client.getFeature('flash-sale-banner');
-  flashSaleBanner = flashSaleBannerFeature.getCurrentValue(entityId, {});
-
-  // fetch the feature details of featureId `bluetooth-earphones` and obtain the feature evaluated value using getCurrentValue()
   const bluetootEarphonesFeature = client.getFeature('bluetooth-earphones');
-  bluetoothEarphones = bluetootEarphonesFeature.getCurrentValue(entityId, entityAttributesForEarphones);
+  bluetoothEarphones = bluetootEarphonesFeature.isEnabled();
 
-  const primeItemsFeature = client.getFeature('exclusive-offers');
+  const flashSaleBannerFeature = client.getFeature('flashsale-banner');
+  flashSaleBanner = flashSaleBannerFeature.isEnabled();
+
+  const entityId = userDetails.email ? userDetails.email : 'defaultUser';
+  const entityAttributesForPrimeItems = {
+    is_prime: userDetails.is_prime
+  };
+  const primeItemsFeature = client.getFeature('exclusive-offers-section');
   primeItems = primeItemsFeature.getCurrentValue(entityId, entityAttributesForPrimeItems)
 
   next();
 }
 
-app.get('/', configCheck, (req, res) => {
-  res.render('index.html', { isLoggedInUser: req.isLoggedInUser, userEmail: req.session.userEmail, flashSaleBanner, flashSaleDate, bluetoothEarphones, primeItems });
+app.get('/', [loginCheck, configCheck], (req, res) => {
+  res.render('index.html', { isLoggedInUser: req.isLoggedInUser, userEmail: req.session.userEmail, flashSaleBanner, bluetoothEarphones, primeItems });
 });
 
 app.post('/', (req, res, next) => {

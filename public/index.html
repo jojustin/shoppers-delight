@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Shop Homepage - Start Bootstrap Template</title>
+  <title>Shopper's Delight - Homepage</title>
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
@@ -18,7 +18,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <a class="navbar-brand" href="#">One stop for all your needs</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
         aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -57,10 +57,10 @@
   </nav>
 
   <!-- Page Content -->
-  <div class="container" style="margin-bottom: 100px;">
+  <div class="container" style="min-height: calc(100vh - 70px);">
     <div class="row">
       <div class="col-lg-3">
-        <h1 class="my-4">Shop Name</h1>
+        <h1 class="my-4">Shopper's Delight</h1>
         <div class="list-group">
           <% if(primeItems) { %>
           <a href="#exclusive" class="list-group-item" data-toggle="tab">Exclusively for you <img src="offer_icon.png"> </a>
@@ -84,14 +84,14 @@
               </p>
             </div>
             <div class="row">
-              <div id="spectacle" class="col-lg-4 col-md-6 mb-4">
+              <div id="ipadpro" class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                  <a href="#"><img class="card-img-top" src="item5.png" alt=""></a>
+                  <a href="#"><img class="card-img-top" src="exclusive_offers_1.jpg" alt=""></a>
                   <div class="card-body">
                     <h4 class="card-title">
-                      <a href="#">Item Five</a>
+                      <a href="#">Item One</a>
                     </h4>
-                    <h5>Rs. 500</h5>
+                    <h5>$ 399</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
                       Lorem ipsum dolor sit amet.</p>
                   </div>
@@ -104,12 +104,12 @@
     
               <div id="casual_shoe" class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                  <a href="#"><img class="card-img-top" src="item6.png" alt=""></a>
+                  <a href="#"><img class="card-img-top" src="exclusive_offers_2.png" alt=""></a>
                   <div class="card-body">
                     <h4 class="card-title">
-                      <a href="#">Item Six</a>
+                      <a href="#">Item Two</a>
                     </h4>
-                    <h5>Rs. 500</h5>
+                    <h5>$ 500</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
                     </p>
                   </div>
@@ -122,9 +122,8 @@
             </div>
           </div>
           <div class="tab-pane active" id="C1">
-            <% if(flashSaleBanner) { %>
+            <% if(isLoggedInUser && flashSaleBanner) { %>
             <img id="discount-banner" src="banner.png" class="img-fluid" alt="Responsive image">
-            <h1 style="position:absolute; top:70px; left:70px; color: #E74500;"><i><%= flashSaleDate %></i></h1>
             <% } %>
             <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
               <ol class="carousel-indicators">
@@ -170,8 +169,8 @@
                   </div>
                 </div>
               </div>
-    
-              <div id="bluetooth_earphone_skyblue" class="col-lg-4 col-md-6 mb-4">
+
+              <div id="spectacle" class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                   <a href="#"><img class="card-img-top" src="item2.png" alt=""></a>
                   <div class="card-body">
@@ -206,8 +205,8 @@
                   </div>
                 </div>
               </div>
-    
-              <div id="bluetooth_earphone_black" class="col-lg-4 col-md-6 mb-4">
+
+              <div id="bluetooth_earphone_skyblue" class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                   <a href="#"><img class="card-img-top" src="item4.png" alt=""></a>
                   <div class="card-body">
@@ -216,7 +215,7 @@
                     </h4>
                     <h5>Rs. 500</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                    </p>
+                      Lorem ipsum dolor sit amet.</p>
                   </div>
                   <div class="card-footer text-right">
                     <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -225,7 +224,7 @@
                 </div>
               </div>
     
-              <div id="spectacle" class="col-lg-4 col-md-6 mb-4">
+              <div id="bluetooth_earphone_black" class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                   <a href="#"><img class="card-img-top" src="item5.png" alt=""></a>
                   <div class="card-body">
@@ -234,7 +233,7 @@
                     </h4>
                     <h5>Rs. 500</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!
-                      Lorem ipsum dolor sit amet.</p>
+                    </p>
                   </div>
                   <div class="card-footer text-right">
                     <small class="text-muted" style="float: left;">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -313,10 +312,8 @@
   </div>
   <!-- /.container -->
 
-  <footer class="py-4 bg-dark fixed-bottom">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
+  <footer class="py-4 bg-dark text-center text-white">
+      Copyright &copy; Shopper's Delight 2021
   </footer>
 
   <!-- LOGIN MODAL -->
@@ -330,7 +327,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/" method="POST">
+        <form id="login" action="/" method="POST" onsubmit="event.preventDefault(); validateLogin();">
           <div class="modal-body">
             <div class="form-group">
               <label for="recipient-email" class="col-form-label">Email Id:</label>
@@ -344,8 +341,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel"></input>
+            <input type="submit" class="btn btn-primary" value="Login"></input>
           </div>
       </form>
       </div>
@@ -360,8 +357,23 @@
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
 
+  <script type="text/javascript">
+    let users;
+    fetch("users.json").then(async (resp) => {
+      users = await resp.json();
+    })
+    function validateLogin() {
+      var logemail = document.getElementById("recipient-email")
+      var form = document.getElementById("login")
+      if ((users.data.filter((e) => e.email === logemail.value).length === 0)) {
+        alert("Invalid login details\nTry again.")
+      } else {
+        form.submit();
+      }
+    }
+  </script>
   
-  <!-- Script for showing the bluetooth earphones items based on the feature value -->
+  <!-- Script for showing the bluetooth earphones items based on the feature flag enabled status -->
   <script>
     var bluetoothEarphones = "<%= bluetoothEarphones %>"
     if (bluetoothEarphones == 'true') {

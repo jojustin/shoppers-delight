@@ -1,0 +1,36 @@
+{
+  "site": "https://shoppers-delight.com",
+  "total_users": 6,
+  "data": [
+    {
+      "id": 0,
+      "email": "alice@gmail.com",
+      "is_prime": true
+    },
+    {
+      "id": 1,
+      "email": "bob@yahoo.co.in",
+      "is_prime": false
+    },
+    {
+      "id": 2,
+      "email": "joyce@ibm.com",
+      "is_prime": true
+    },
+    {
+      "id": 3,
+      "email": "16IT241@abc.edu.in",
+      "is_prime": false
+    },
+    {
+      "id": 4,
+      "email": "skm@hotmail.com",
+      "is_prime": true
+    },
+    {
+      "id": 5,
+      "email": "ac@us.ibm.com",
+      "is_prime": false
+    }
+  ]
+}
