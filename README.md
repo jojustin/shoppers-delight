@@ -44,7 +44,7 @@ This sample contains an Node.js microservice that you can use to learn more abou
     ```bash
     $ ./demo.sh
     ```
-    > If you face any permission errors during the script execution, provide appropriate permission to the file by running - `sudo chmod 777 ./demo.sh`. And then execute the script.  
+    > If you face any permission errors during the script execution, provide appropriate permission to the file by running - `sudo chmod +x ./demo.sh`. And then execute the script.  
 - Provide all the inputs during script execution. A sample example is shown in below figure
   <img src="README_IMG.png" width=75% height=50%/>
 - Script execution takes time. Script is executed successfully only when you see the log `---Demo script complete---` at the end in your terminal.
