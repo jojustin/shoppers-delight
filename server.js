@@ -16,6 +16,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
+var bunyan = require('bunyan');
 const { AppConfiguration } = require('ibm-appconfiguration-node-sdk'); // App Configuration SDK require
 const users = require('./public/users/users.json');
 
@@ -35,6 +36,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public', 'images')));
 app.use(express.static(path.join(__dirname, 'public', 'users')));
 
+var log = bunyan.createLogger({name: "shoppersdelight"});
+log.level("info");
+
 // NOTE: Add your custom values
 const region = process.env.REGION; // use `us-south` for Dallas. `eu-gb` for London. au-syd for Sydney
 const guid = process.env.GUID;
@@ -48,6 +52,17 @@ const client = AppConfiguration.getInstance();
 client.init(region, guid, apikey);
 client.setContext(collectionId, environmentId);
 
+
+client.emitter.on('configurationUpdate', () => {
+  acLogLevelFeature = client.getFeature('log-level');
+  const logEntityId="appadminuser";
+  acLogDebugLevel = acLogLevelFeature.getCurrentValue(logEntityId);
+  log.level(acLogDebugLevel);
+  log.info("application log level is " + acLogDebugLevel);
+});
+
+
+
 // for featureflags
 let flashSaleBanner;
 let bluetoothEarphones;
@@ -57,6 +72,12 @@ function loginCheck(req, res, next) {
   if (req.session && req.session.userEmail) {
     req.isLoggedInUser = true;
     userDetails = users.data.filter((e) => e.email === req.session.userEmail)[0];
+    const entityAttributesForLogs = {
+      userid: userDetails.email,
+    };
+    acLogDebugLevel = acLogLevelFeature.getCurrentValue(userDetails.email, entityAttributesForLogs );
+    console.log("application log level for user " + userDetails.email + " is " + acLogDebugLevel);
+    log.level(acLogDebugLevel);
   } else {
     req.isLoggedInUser = false;
     userDetails = {}
@@ -66,9 +87,11 @@ function loginCheck(req, res, next) {
 function configCheck(req, res, next) {
   const bluetootEarphonesFeature = client.getFeature('bluetooth-earphones');
   bluetoothEarphones = bluetootEarphonesFeature.isEnabled();
+  log.debug("Bluetooth ear phones selling is enabled? " + bluetoothEarphones);
 
   const flashSaleBannerFeature = client.getFeature('flashsale-banner');
   flashSaleBanner = flashSaleBannerFeature.isEnabled();
+  log.debug("Flash sale enabled? " + bluetoothEarphones);
 
   const entityId = userDetails.email ? userDetails.email : 'defaultUser';
   const entityAttributesForPrimeItems = {
@@ -76,6 +99,7 @@ function configCheck(req, res, next) {
   };
   const primeItemsFeature = client.getFeature('exclusive-offers-section');
   primeItems = primeItemsFeature.getCurrentValue(entityId, entityAttributesForPrimeItems);
+  log.debug("prime items details " + primeItems);
 
   next();
 }
@@ -93,6 +117,7 @@ app.get('/', [loginCheck, configCheck], (req, res) => {
 app.post('/', (req, res, next) => {
   if (req.body.logemail && req.body.logpassword) {
     req.session.userEmail = req.body.logemail;
+    log.debug("user of the session is " + req.session.userEmail);
     return res.redirect('/');
   }
   const err = new Error('All fields required.');
@@ -118,5 +143,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  log.debug("Example app listening at http://localhost:${port}");
 });

@@ -190,6 +190,23 @@ addSegments()
 	bluetoothEarphonesSegmentId=$segmentIdResponse
 	printf "ibmer SegmentId is $bluetoothEarphonesSegmentId\n"
 
+    days=$(($(date +'%s * 1000 + %-N / 1000000')))
+	logSegmentId="segment_${days}"
+	segmentStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $segmentUpdateURL -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" --data '{"segment_id": "'"${logSegmentId}"'", "name": "User Journey","description": "User identification for log management","tags": "logs","rules" :  [{"values":["alice"],"operator":"contains","attribute_name":"userid"}]}' )
+	HTTP_BODY=$(echo $segmentStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
+	HTTP_STATUS=$(echo $segmentStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+ 	printf "%b\nHTTP_STATUS is $HTTP_STATUS"
+	if [ $HTTP_STATUS != 201 ]
+	then
+		printf "%b\n \e[31m Failure : Segment update failed with error code $HTTP_STATUS and body $HTTP_BODY \e[39m"
+		cleanup
+	else 
+		segmentIdResponse=$(echo $HTTP_BODY | jq -rc '.segment_id')
+		printf "%b\nSuccess:  Segment updated with id $segmentIdResponse\n"
+	fi
+	bluetoothEarphonesSegmentId=$segmentIdResponse
+	printf "ibmer SegmentId is $bluetoothEarphonesSegmentId\n"
+
 }
 
 addCollection() 
@@ -247,6 +264,19 @@ addFeature()
 		featureId=$(echo $HTTP_BODY | jq -rc '.feature_id')
 		printf "%bSuccess:  Feature updated with id $featureId\n"
 	fi
+	
+	featureStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $featureUpdateURL -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" --data '{"name": "Log Level","feature_id": "log-level","description": "Log level for application.","enabled_value": "debug","type": "STRING", "format" : "TEXT", "disabled_value": "info","tags": "logs", "collections": [{"collection_id": "shoppers-delight"}],"enabled": false}' )
+	HTTP_BODY=$(echo $featureStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
+	HTTP_STATUS=$(echo $featureStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
+	if [ $HTTP_STATUS != 201 ]
+	then
+		printf "%b\n \e[31m Failure : Feature update failed with error code $HTTP_STATUS and body $HTTP_BODY \e[39m"
+		cleanup
+	else 
+		featureId=$(echo $HTTP_BODY | jq -rc '.feature_id')
+		printf "%bSuccess:  Feature updated with id $featureId\n"
+	fi
+
 
 }
 
