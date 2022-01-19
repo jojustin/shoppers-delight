@@ -19,6 +19,7 @@ set -e
 region[1]="https://us-south.apprapp.cloud.ibm.com/apprapp/feature/v1/instances"
 region[2]="https://eu-gb.apprapp.cloud.ibm.com/apprapp/feature/v1/instances"
 region[3]="https://au-syd.apprapp.cloud.ibm.com/apprapp/feature/v1/instances"
+region[4]="https://us-east.apprapp.cloud.ibm.com/apprapp/feature/v1/instances"
 tokenURL="https://iam.cloud.ibm.com/identity/token"
 urlSeparator="/"
 environmentName=""
@@ -32,7 +33,7 @@ generateEnvId(){
 	environmentId="$(tr [A-Z] [a-z] <<< "$1")"
 }
 #---------------------------------Get inputs for the script to run------------------------
-printf "\nEnter the region where your App configuration service is created\n1. us-south (Dallas)\n2. eu-gb (London)\n3. au-syd (Sydney)\n\n"
+printf "\nEnter the region where your App configuration service is created\n1. us-south (Dallas)\n2. eu-gb (London)\n3. au-syd (Sydney)\n4. us-east (Washington DC)\n\n"
 
 read -p "Enter region number> "  regionIn
 printf "\nChoose action\n"
@@ -192,7 +193,7 @@ addSegments()
 
     days=$(($(date +'%s * 1000 + %-N / 1000000')))
 	logSegmentId="segment_${days}"
-	segmentStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $segmentUpdateURL -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" --data '{"segment_id": "'"${logSegmentId}"'", "name": "User Journey","description": "User identification for log management","tags": "logs","rules" :  [{"values":["alice"],"operator":"contains","attribute_name":"userid"}]}' )
+	segmentStatus=$(curl -s --write-out 'HTTPSTATUS:%{http_code}'  -X POST $segmentUpdateURL -H "Authorization: Bearer $access_token" -H "Content-Type: application/json" --data '{"segment_id": "'"${logSegmentId}"'", "name": "User Filter","description": "User identification for log management","tags": "logs","rules" :  [{"values":["alice"],"operator":"contains","attribute_name":"userid"}]}' )
 	HTTP_BODY=$(echo $segmentStatus | sed -e 's/HTTPSTATUS\:.*//g' | jq .)
 	HTTP_STATUS=$(echo $segmentStatus | tr -d '\n' | sed -e 's/.*HTTPSTATUS://')
  	printf "%b\nHTTP_STATUS is $HTTP_STATUS"

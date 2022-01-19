@@ -19,6 +19,7 @@ set -e
 region[1]="https://us-south.apprapp.cloud.ibm.com/apprapp/feature/v1/instances"
 region[2]="https://eu-gb.apprapp.cloud.ibm.com/apprapp/feature/v1/instances"
 region[3]="https://au-syd.apprapp.cloud.ibm.com/apprapp/feature/v1/instances"
+region[4]="https://us-east.apprapp.cloud.ibm.com/apprapp/feature/v1/instances"
 tokenURL="https://iam.cloud.ibm.com/identity/token"
 urlSeparator="/"
 environmentName=""
@@ -32,7 +33,7 @@ generateEnvId(){
 	environmentId="$(tr [A-Z] [a-z] <<< "$1")"
 }
 #---------------------------------Get inputs for the script to run------------------------
-printf "\nEnter the region where your App configuration service is created\n1. us-south (Dallas)\n2. eu-gb (London)\n3. au-syd (Sydney)\n\n"
+printf "\nEnter the region where your App configuration service is created\n1. us-south (Dallas)\n2. eu-gb (London)\n3. au-syd (Sydney)\n4. us-east (Washington DC)\n\n"
 
 read -p "Enter region number> "  regionIn
 printf "\n"

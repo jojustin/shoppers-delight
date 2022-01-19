@@ -4,32 +4,32 @@
   "data": [
     {
       "id": 0,
-      "email": "alice@gmail.com",
+      "email": "alice@example.com",
       "is_prime": true
     },
     {
       "id": 1,
-      "email": "bob@yahoo.co.in",
+      "email": "bob@example.com",
       "is_prime": false
     },
     {
       "id": 2,
-      "email": "joyce@ibm.com",
+      "email": "joyce@example.com",
       "is_prime": true
     },
     {
       "id": 3,
-      "email": "16IT241@abc.edu.in",
+      "email": "16IT241@example.edu.in",
       "is_prime": false
     },
     {
       "id": 4,
-      "email": "skm@hotmail.com",
+      "email": "skm@example.com",
       "is_prime": true
     },
     {
       "id": 5,
-      "email": "ac@us.ibm.com",
+      "email": "ac@example.com",
       "is_prime": false
     }
   ]
